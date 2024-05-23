@@ -1,0 +1,1 @@
+Scaffold-DbContext "Data Source=M331\SQLEXPRESS;Initial Catalog=QLBanHang;Integrated Security=True;Trust Server Certificate=True" Microsoft.EntityFrameworkCore.SqlServer –OutputDir Models

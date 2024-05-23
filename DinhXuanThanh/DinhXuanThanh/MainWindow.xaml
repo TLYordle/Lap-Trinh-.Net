@@ -1,0 +1,82 @@
+﻿<Window x:Class="TrieuTruongGiang.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TrieuTruongGiang"
+        mc:Ignorable="d"
+        Title="Cap nhat bang san pham" Height="450" Width="800"
+        FontFamily="Time New Roman" FontSize="14">
+    <StackPanel>
+        <!--Khai báo Style và Template trong StackPanel-->
+        <StackPanel.Resources>
+            <!--Trong trường hợp này, có 2 Style và 1 Template:-->
+            <!--(1) Style quy định về kiểu phông chữ, áp dụng với Control-->
+            <Style x:Key="baseStyle" TargetType="{x:Type Control}">
+                <Setter Property="FontFamily" Value="Times New Roman" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontStyle" Value="Italic" />
+            </Style>
+            <!--(2) Style kế thừa từ Style trước, quy định với Control TextBox -->
+            <Style BasedOn="{StaticResource baseStyle}" TargetType="{x:Type TextBox}">
+                <!--Khai báo trigger-->
+                <Style.Triggers>
+                    <!--Sự kiện khi con trỏ chuột lướt qua-->
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Foreground" Value="Red" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <!--(3) Thiết lập Template cho điều khiển Button-->
+            <Style TargetType="Button">
+                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Ellipse Fill="Cyan"/>
+                                <!--Đánh dấu nơi bắt đầu đặt nội dung của Button: chính giữa-->
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </StackPanel.Resources>
+        <Grid Loaded="Window_Loaded">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="79*"/>
+                <ColumnDefinition Width="121*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Ma san pham:" HorizontalAlignment="Left" Margin="30,30,0,0" VerticalAlignment="Top"/>
+            <Label Content="Ten san pham:" HorizontalAlignment="Left" Margin="30,70,0,0" VerticalAlignment="Top"/>
+            <Label Content="Loai san pham:" HorizontalAlignment="Left" Margin="30,110,0,0" VerticalAlignment="Top"/>
+            <Label Content="Don gia:" HorizontalAlignment="Left" Margin="30,150,0,0" VerticalAlignment="Top"/>
+            <Label Content="So luong:" HorizontalAlignment="Left" Margin="30,190,0,0" VerticalAlignment="Top"/>
+            <TextBox Name="txtMaSP" HorizontalAlignment="Left" Margin="160,35,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            <TextBox Name="txtTenSP" HorizontalAlignment="Left" Margin="160,75,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="180" Grid.ColumnSpan="2"/>
+            <TextBox Name="txtDonGia" HorizontalAlignment="Left" Margin="160,155,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            <TextBox Name="txtSoLuong" HorizontalAlignment="Left" Margin="160,195,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            <ComboBox Name="cboBox" HorizontalAlignment="Left" Margin="160,115,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cboBox_SelectionChanged"/>
+            <DataGrid x:Name="dgvSanPham"
+            AutoGenerateColumns="False"
+            AlternatingRowBackground="AntiqueWhite"
+            CanUserAddRows="False" Margin="30,235,30,70" Grid.ColumnSpan="2">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Mã SP" Binding="{Binding MaSp}" Width="120" />
+                    <DataGridTextColumn Header="Tên SP" Binding="{Binding TenSp}"  Width="120"/>
+                    <DataGridTextColumn Header="Mã loại SP" Binding="{Binding MaLoai}"  Width="120"/>
+                    <DataGridTextColumn Header="Số lượng" Binding="{Binding SoLuong}" Width="120"/>
+                    <DataGridTextColumn Header="Đơn giá" Binding="{Binding DonGia}"  Width="120"/>
+                    <DataGridTextColumn Header="Thành tiền" Binding="{Binding ThanhTien}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Button Content="Them" HorizontalAlignment="Left" Margin="70,390,0,0" VerticalAlignment="Top" Width="60" Click="btnThem_Click"/>
+            <Button Content="Sua" HorizontalAlignment="Left" Margin="200,390,0,0" VerticalAlignment="Top" Width="60" Click="btnSua_Click"/>
+            <Button Content="Xoa" HorizontalAlignment="Left" Margin="14,390,0,0" VerticalAlignment="Top" Width="60" Grid.Column="1" Click="btnXoa_Click"/>
+            <Button Content="Tim" HorizontalAlignment="Left" Margin="154,390,0,0" VerticalAlignment="Top" Width="60" Grid.Column="1" Click="btnTimKiem_Click"/>
+            <Button Content="Thong ke" HorizontalAlignment="Left" Margin="284,390,0,0" VerticalAlignment="Top" Width="80" Grid.Column="1" Click="btnThongKe_Click"/>
+        </Grid>
+    </StackPanel>
+</Window>
